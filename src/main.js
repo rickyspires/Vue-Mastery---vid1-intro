@@ -1,8 +1,48 @@
-import Vue from 'vue'
-import App from './App.vue'
-
-Vue.config.productionTip = false
-
-new Vue({
-  render: h => h(App),
-}).$mount('#app')
+var app = new Vue({
+  el: '#app',
+  data: {
+    brand: 'Vue Mastery',
+    product: 'socks',
+    description: 'Lorem ipsum dolor sit amet',
+    selectedVariant: 0,
+    details: ["80% cotton", "20% polyester", "other"],
+    variants: [
+      {
+        variantId: 2234,
+        variantColor: "green",
+        variantImage: './assets/vmSocks-green.jpg',
+        variantQuantity: 10
+      },
+      {
+        variantId: 2235,
+        variantColor: "blue",
+        variantImage: './assets/vmSocks-blue.jpg',
+        variantQuantity: 0
+      }
+    ],
+    cart: 0
+  },
+  methods: {
+    addToCart: function () {
+      this.cart += 1
+    },
+    removeFromCart: function () {
+      this.cart -= 1
+    },
+    updateProduct(index) {
+      this.selectedVariant = index
+      console.log(index)
+    }
+  },
+  computed: {
+    title() {
+      return this.brand + ' ' + this.product
+    },
+    image() {
+      return this.variants[this.selectedVariant].variantImage
+    },
+    inStock() {
+      return this.variants[this.selectedVariant].variantQuantity
+    }
+  }
+})
